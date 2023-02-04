@@ -21,14 +21,28 @@ function App() {
 
   // console.log(url);
 
-  // useEffect(() => {
-  //   // apiTesting();
-  // }, []);
+  useEffect(() => {
+    apiFetchConfigImages();
+  }, []);
 
-  const apiTesting = () => {
-    fetchDataFromApi("/movie/popular").then((res) => {
-      //   console.log(res);
-      dispatch(getApiConfiguration(res));
+  // const apiTesting = () => {
+  //   fetchDataFromApi("/movie/popular").then((res) => {
+  //     //   console.log(res);
+  //     dispatch(getApiConfiguration(res));
+  //   });
+  // };
+
+  const apiFetchConfigImages = () => {
+    fetchDataFromApi("/configuration").then((res) => {
+      // console.log(res);
+
+      const url = {
+        backdrop: res?.images?.base_url + "original",
+        poster: res?.images?.base_url + "original",
+        profile: res?.images?.base_url + "original",
+      };
+
+      dispatch(getApiConfiguration(url));
     });
   };
 
