@@ -19,6 +19,27 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const controlNavbar = () => {
+        // console.log(window.scrollY);
+        if (window.scrollY > 200) {
+            if (window.scrollY > lastScrollY && !mobileMenu) {
+                setShow("hide");
+            } else {
+                setShow("show");
+            }
+        } else {
+            setShow("top");
+        }
+        setLastScrollY(window.scrollY);
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", controlNavbar);
+        return () => {
+            window.removeEventListener("scroll", controlNavbar); //removing the the listener is important as it heaps the memory
+        };
+    }, [lastScrollY]);
+
     const searchQueryHandler = (e) => {
         if (e.key === "Enter" && query.length > 0) {
             navigate(`/search/${query}`);
@@ -71,7 +92,7 @@ const Header = () => {
                         TV Shows
                     </li>
                     <li className="menuItem">
-                        <HiOutlineSearch />
+                        <HiOutlineSearch onClick={openSearch} />
                     </li>
                 </ul>
                 <div className="mobileMenuItems">
