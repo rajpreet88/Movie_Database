@@ -19,6 +19,11 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    //to scroll the default page to the top on change of url location
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
+
     const controlNavbar = () => {
         // console.log(window.scrollY);
         if (window.scrollY > 200) {
